@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191022200715) do
+ActiveRecord::Schema.define(version: 20191022205931) do
 
   create_table "animes", force: :cascade do |t|
     t.string  "title"
-    t.integer "average_rating"
+    t.float   "average_rating"
     t.string  "start_date"
     t.integer "episode_count"
     t.integer "api_id"
