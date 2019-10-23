@@ -46,4 +46,11 @@ class Anime < ActiveRecord::Base
         anime_ratings.sort_by! { |anime| anime.values.max}.reverse
     end
 
+    def self.my_stats(username)
+        user = User.find_by(username: username)
+        finished_animes = user.users_animes.filter{|anime| anime.finished == true}.length
+        total_animes = user.users_animes.length
+        puts "You have finished #{finished_animes} out of #{total_animes} animes"   
+    end
+
 end
