@@ -43,7 +43,12 @@ class Anime < ActiveRecord::Base
             rating = anime.average_rating
             anime_ratings << {title  => rating}
         end
-        anime_ratings.sort_by! { |anime| anime.values.max}.reverse
+        anime_ratings = anime_ratings.sort_by { |anime| anime.values.max}.reverse
+        anime_ratings.each do |anime|
+            anime.each do |name, rating| 
+            puts "#{name}: #{rating}"
+            end 
+        end
     end
 
     def self.my_stats(username)
@@ -59,7 +64,6 @@ class Anime < ActiveRecord::Base
         episodes = animes.map{|anime| anime.episode_count}
         total_episode_count = episodes.reduce(0) { |sum, num| sum + num }
         puts "You have finished #{finished_animes.length} out of #{total_animes.length} animes" 
-        puts
         puts "------------------------------------------------------------------------"
         puts "You have watched #{total_episode_count} total episodes"  
     end
