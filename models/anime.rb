@@ -1,3 +1,5 @@
+require 'pry'
+
 class Anime < ActiveRecord::Base
     has_many :users_animes
     has_many :users, through: :users_animes
@@ -12,11 +14,15 @@ class Anime < ActiveRecord::Base
 
     def self.find_or_create_by(anime_title)
         if self.find_by(title: anime_title)
-           puts "Found it!"
+        else 
+            url = create_url(anime_title)
         end
     end
 
-    def create_url(anime_title)
-        anime_title.split(" ")
+    def self.create_url(anime_title)
+        base_url = "https://kitsu.io/api/edge/anime?filter[text]="
+        anime = anime_title.sub!(" ", "%20")
+        binding.pry
+        url = base_url + anime
     end
 end
