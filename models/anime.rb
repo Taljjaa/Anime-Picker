@@ -5,9 +5,13 @@ class Anime < ActiveRecord::Base
     has_many :users, through: :users_animes
 
     def self.sort_by_ratings
-        animes = Anime.all.map do |anime|
-
+        anime_rankings = []
+        Anime.all.each do |anime|
+            title = anime.title
+            rating = anime.average_rating
+            anime_rankings << {title  => rating}
         end
+        anime_rankings.sort_by! { |anime| anime.values.max}.reverse
     end
 
     def self.add(anime_title, username)

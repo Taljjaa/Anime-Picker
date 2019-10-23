@@ -11,8 +11,8 @@ def main_menu
     puts "Welcome, #{$username}"
     puts "What would you like to do"
     puts "1. See my list of my animes"
-    puts "2. Highest rated anime"
-    puts "3. Add an anime to my list"
+    puts "2. Add an anime to my list"
+    puts "3. Highest rated anime in database"
     puts "4. See my stats"
     puts "5. Exit =("
     input = gets.chomp
@@ -28,14 +28,13 @@ def main_menu
     end
 
     if input == "2"
-        puts "potato 2"
-        Anime.sort_by_ratings
-    end
-
-    if input == "3"
         puts "What anime would you like to add?"
         anime_title = gets.chomp
         Anime.add(anime_title, $username)
+    end
+
+    if input == "3"
+        puts Anime.sort_by_ratings
     end
 
     if input == "4"
