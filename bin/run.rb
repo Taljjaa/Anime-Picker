@@ -34,7 +34,7 @@ def main_menu
     if input == "3"
         puts "What anime would you like to add?"
         anime_title = gets.chomp
-        Anime.find_or_create_by(anime_title)
+        Anime.add(anime_title, $username)
     end
 
     if input == "4"

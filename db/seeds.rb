@@ -17,5 +17,6 @@ create_seedling("https://kitsu.io/api/edge/anime?filter[text]=gintama")
 create_seedling("https://kitsu.io/api/edge/anime?filter[text]=3%20gatsu%20no%20Lion%202nd%20Season")
 create_seedling("https://kitsu.io/api/edge/anime?filter[text]=Made%20in%20Abyss")
 
+
 binding.pry
 0

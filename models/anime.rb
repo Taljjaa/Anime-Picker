@@ -5,24 +5,38 @@ class Anime < ActiveRecord::Base
     has_many :users, through: :users_animes
 
     def self.sort_by_ratings
-        # ratings = self.all.map do |anime|
-        #     anime.average_rating
-        # end
-        # puts ratings
+        animes = Anime.all.map do |anime|
 
+        end
     end
 
-    def self.find_or_create_by(anime_title)
-        if self.find_by(title: anime_title)
+    def self.add(anime_title, username)
+        if Anime.find_by(title: anime_title)
+            anime_id = Anime.find_by(title: anime_title).id
+            user_id = User.find_by(username: username).id
+            UsersAnime.find_or_create_by(user_id: user_id, anime_id:anime_id, finished: true)
+            puts "Added #{anime_title} to your list"
         else 
             url = create_url(anime_title)
+            anime = Anime.create_seedling(url)
+            anime
         end
     end
 
     def self.create_url(anime_title)
         base_url = "https://kitsu.io/api/edge/anime?filter[text]="
         anime = anime_title.sub!(" ", "%20")
-        binding.pry
         url = base_url + anime
+    end
+
+    def self.create_seedling(url)
+        response = RestClient.get(url)
+        json_data = JSON.parse(response)["data"][0]
+        title = json_data["attributes"]["titles"]["en_us"]
+        avg_count = json_data["attributes"]["averageRating"].to_f
+        date = json_data["attributes"]["startDate"]
+        count = json_data["attributes"]["episodeCount"]
+        api_id = json_data["id"].to_i
+        Anime.find_or_create_by(title: title, average_rating: avg_count, start_date: date, episode_count: count, api_id: api_id)
     end
 end
