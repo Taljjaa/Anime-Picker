@@ -34,7 +34,7 @@ class Anime < ActiveRecord::Base
     def self.create_seedling(url)
         response = RestClient.get(url)
         json_data = JSON.parse(response)["data"][0]
-        title = json_data["attributes"]["titles"]["en_us"]
+        title = json_data["attributes"]["titles"]["en"]
         avg_count = json_data["attributes"]["averageRating"].to_f
         date = json_data["attributes"]["startDate"]
         count = json_data["attributes"]["episodeCount"]

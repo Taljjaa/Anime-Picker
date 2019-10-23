@@ -22,7 +22,8 @@ def main_menu
             puts "No animes found =("
             puts "----------------------------------"
         else 
-            puts User.find_by(username: $username).animes
+            anime_titles = User.find_by(username: $username).animes.map{|anime| anime.title}
+            puts anime_titles 
         end
     end
 
