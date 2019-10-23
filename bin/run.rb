@@ -28,10 +28,13 @@ def main_menu
 
     if input == "2"
         puts "potato 2"
+        Anime.sort_by_ratings
     end
 
     if input == "3"
-        puts "pizza 3"
+        puts "What anime would you like to add?"
+        anime_title = gets.chomp
+        Anime.find_or_create_by(anime_title)
     end
 
     if input == "4"
