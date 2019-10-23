@@ -48,9 +48,20 @@ class Anime < ActiveRecord::Base
 
     def self.my_stats(username)
         user = User.find_by(username: username)
-        finished_animes = user.users_animes.filter{|anime| anime.finished == true}.length
-        total_animes = user.users_animes.length
-        puts "You have finished #{finished_animes} out of #{total_animes} animes"   
+        finished_animes = user.users_animes.filter{|anime| anime.finished == true}
+        total_animes = user.users_animes
+        finished_anime_ids = finished_animes.map do |anime|
+            anime.anime_id
+        end
+        animes = finished_anime_ids.map do |anime_id|
+            Anime.find(anime_id)
+        end
+        episodes = animes.map{|anime| anime.episode_count}
+        total_episode_count = episodes.reduce(0) { |sum, num| sum + num }
+        puts "You have finished #{finished_animes.length} out of #{total_animes.length} animes" 
+        puts
+        puts "------------------------------------------------------------------------"
+        puts "You have watched #{total_episode_count} total episodes"  
     end
 
 end

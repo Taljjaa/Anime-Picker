@@ -19,14 +19,15 @@ def main_menu
     input = gets.chomp
 
     if input == "1" 
+        puts
         if User.find_by(username: $username).animes.length < 1
             puts "No animes found =("
-            puts "----------------------------------"
         else 
             anime_titles = User.find_by(username: $username).animes.map{|anime| anime.title}
             puts anime_titles 
         end
     elsif input == "2"
+        puts
         puts "What anime would you like to add?"
         anime_title = gets.chomp
         puts "Have you finished this anime"
@@ -40,15 +41,21 @@ def main_menu
         end
         Anime.add(anime_title, $username, finished)
     elsif input == "3"
+        puts
         puts Anime.sort_by_ratings
     elsif input == "4"
+        puts
         Anime.my_stats($username)
     elsif input == "5"
+        puts
         puts "Goodbye #{$username}"
         return
     else 
         puts "Invalid Input".colorize(:red)
     end
+    puts 
+    puts "------------------------------------------------------------------------"
+    puts  
     main_menu
 end 
 
