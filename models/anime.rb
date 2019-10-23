@@ -14,19 +14,21 @@ class Anime < ActiveRecord::Base
         if Anime.find_by(title: anime_title)
             anime_id = Anime.find_by(title: anime_title).id
             user_id = User.find_by(username: username).id
-            UsersAnime.find_or_create_by(user_id: user_id, anime_id:anime_id, finished: true)
+            UsersAnime.find_or_create_by(user_id: user_id, anime_id: anime_id, finished: true)
             puts "Added #{anime_title} to your list"
         else 
             url = create_url(anime_title)
             anime = Anime.create_seedling(url)
-            anime
+            user_id = User.find_by(username: username).id
+            UsersAnime.find_or_create_by(user_id: user_id, anime_id: anime.id, finished: true)
+            puts "Added #{anime_title} to your list"
         end
     end
 
     def self.create_url(anime_title)
         base_url = "https://kitsu.io/api/edge/anime?filter[text]="
-        anime = anime_title.sub!(" ", "%20")
-        url = base_url + anime
+        anime_title.gsub!(" ", "%20")
+        url = base_url + anime_title
     end
 
     def self.create_seedling(url)
