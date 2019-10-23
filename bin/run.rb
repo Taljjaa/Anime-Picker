@@ -2,12 +2,6 @@ require_relative '../config/environment'
 require 'pry'
 require 'colorize'
 
-puts "----------WELCOME TO ANIME PICKER!----------"
-
-puts "Please create a username"
-$username = gets.chomp
-puts "Welcome, #{$username}"
-
 def main_menu
     User.find_or_create_by(username: $username)
     puts "What would you like to do?"
@@ -18,14 +12,17 @@ def main_menu
     puts "5. Exit =("
     input = gets.chomp
 
-    if input == "1" 
+    if input == "1"
+        system "clear" 
         if User.find_by(username: $username).animes.length < 1
             puts "No animes found =(".colorize(:red)
         else 
             anime_titles = User.find_by(username: $username).animes.map{|anime| anime.title}
             puts anime_titles 
         end
+        
     elsif input == "2"
+        system "clear" 
         puts "What anime would you like to add?"
         anime_title = gets.chomp
         puts "Have you finished this anime"
@@ -39,19 +36,31 @@ def main_menu
         end
         Anime.add(anime_title, $username, finished)
     elsif input == "3"
+        system "clear" 
        Anime.sort_by_ratings
     elsif input == "4"
+        system "clear" 
         puts
         Anime.my_stats($username)
     elsif input == "5"
-        puts "Goodbye #{$username}"
+        system "clear"
+        puts "Goodbye #{$username}".colorize(:light_magenta)
         return
     else 
         puts "Invalid Input".colorize(:red)
     end
+    sleep 2.5
+    system "clear"
     main_menu
 end 
 
+system "clear"
+puts "----------WELCOME TO ANIME PICKER!----------"
+
+puts "Please create a username"
+$username = gets.chomp
+puts "Welcome, #{$username}"
+system "clear"
 main_menu
 
 
