@@ -26,6 +26,7 @@ def main_menu
     if input == "1"
         system "clear" 
         Anime.get_my_animes($username)
+        sleep 3.5
     elsif input == "2"
         system "clear" 
         puts "What anime would you like to add?".colorize(:white)
@@ -40,6 +41,7 @@ def main_menu
             puts "Please enter yes or no"
         end
         Anime.add(anime_title, $username, finished)
+        sleep 3.5
     elsif input == "3"
         system "clear"
         Anime.get_my_animes($username)
@@ -50,23 +52,25 @@ def main_menu
             puts "Please enter the anime title you would like to delete".colorize(:white)
             anime_title = gets.chomp
             Anime.seek_and_destroy(anime_title, $username)
+            sleep 3.5
         else 
-            main_menu
+           puts "Going back"
+           sleep 0.5
         end
     elsif input == "4"
         system "clear" 
        Anime.sort_by_ratings
+       sleep 4
     elsif input == "5"
         system "clear" 
-        puts
-        Anime.my_stats($username)
+        puts Anime.my_stats($username)
+        sleep 3.5
     elsif input == "6"
         puts "Goodbye #{$username}".colorize(:light_magenta)
         return
     else 
         puts "Invalid Input".colorize(:red)
     end
-    sleep 4
     system "clear"
     main_menu
 end 
