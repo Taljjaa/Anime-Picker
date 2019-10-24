@@ -1,10 +1,14 @@
 require_relative '../config/environment'
 require 'pry'
 require 'colorize'
+require "tty-prompt"
 
+$prompt = TTY::Prompt.new
 font = TTY::Font.new(:doom)
 
 def main_menu
+    # $prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
+
     User.find_or_create_by(username: $username)
     puts "What would you like to do?"
     puts "1. See my list of my animes"

@@ -21,8 +21,8 @@ class Anime < ActiveRecord::Base
 
     def self.create_url(anime_title)
         base_url = "https://kitsu.io/api/edge/anime?filter[text]="
-        anime_title.gsub!(" ", "%20")
-        url = base_url + anime_title
+        query_anime_title = anime_title.gsub(" ", "%20")
+        url = base_url + query_anime_title
     end
 
     def self.create_seedling(url)
