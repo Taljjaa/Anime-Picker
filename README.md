@@ -1,6 +1,4 @@
-# Module One Final Project
-
-## Title: Anime Picker
+# Title: Anime Picker
 
 ## Description
 
@@ -14,7 +12,7 @@ bundle.install
 ```
 
 ```ruby
-#this will create your database
+#this will create your database locally
 rake db:migrate
 ```
 
