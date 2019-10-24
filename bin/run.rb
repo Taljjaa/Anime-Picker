@@ -21,12 +21,7 @@ def main_menu
 
     if input == "1"
         system "clear" 
-        if User.find_by(username: $username).animes.length < 1
-            puts "No animes found =(".colorize(:red)
-        else 
-            anime_titles = User.find_by(username: $username).animes.map{|anime| anime.title}
-            puts anime_titles 
-        end
+        Anime.get_my_animes($username)
         
     elsif input == "2"
         system "clear" 
@@ -43,7 +38,8 @@ def main_menu
         end
         Anime.add(anime_title, $username, finished)
     elsif input == "3"
-        puts "input was 3"
+        system "clear"
+
     elsif input == "4"
         system "clear" 
        Anime.sort_by_ratings

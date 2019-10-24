@@ -5,6 +5,15 @@ class Anime < ActiveRecord::Base
     has_many :users_animes
     has_many :users, through: :users_animes
 
+    def self.get_my_animes(username) 
+        if User.find_by(username: username).animes.length < 1
+            puts "No animes found =(".colorize(:red)
+        else 
+            anime_titles = User.find_by(username: $username).animes.map{|anime| anime.title}
+            puts anime_titles 
+        end
+    end
+
     def self.add(anime_title, username, finished)
         if Anime.find_by(title: anime_title)
             anime_id = Anime.find_by(title: anime_title).id
