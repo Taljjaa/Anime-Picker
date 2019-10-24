@@ -22,7 +22,6 @@ def main_menu
     if input == "1"
         system "clear" 
         Anime.get_my_animes($username)
-        
     elsif input == "2"
         system "clear" 
         puts "What anime would you like to add?"
@@ -39,7 +38,10 @@ def main_menu
         Anime.add(anime_title, $username, finished)
     elsif input == "3"
         system "clear"
-
+        Anime.get_my_animes($username)
+        puts "Please enter the anime title you would like to delete"
+        anime_title = gets.chomp
+        Anime.seek_and_destroy(anime_title, $username)
     elsif input == "4"
         system "clear" 
        Anime.sort_by_ratings

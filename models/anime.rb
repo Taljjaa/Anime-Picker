@@ -46,11 +46,23 @@ class Anime < ActiveRecord::Base
            return false
         end
         title = json_data["attributes"]["titles"]["en"]
+        if !title
+            title = json_data["attributes"]["titles"]["en_us"]
+        end
         avg_count = json_data["attributes"]["averageRating"].to_f
         date = json_data["attributes"]["startDate"]
         count = json_data["attributes"]["episodeCount"]
         api_id = json_data["id"].to_i
         Anime.find_or_create_by(title: title, average_rating: avg_count, start_date: date, episode_count: count, api_id: api_id)
+    end
+
+    def self.seek_and_destroy(anime_title, username)
+        anime_id = Anime.find_by(title: anime_title).id
+        Anime.delete(anime_id)
+        user_id = User.find_by(username: username).id
+        users_anime_id = UsersAnime.find_by(user_id: user_id, anime_id: anime_id).id
+        UsersAnime.delete(users_anime_id)
+        puts "Deleted #{anime_title} from your list"
     end
 
     def self.sort_by_ratings
