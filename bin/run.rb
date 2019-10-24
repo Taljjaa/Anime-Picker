@@ -2,6 +2,8 @@ require_relative '../config/environment'
 require 'pry'
 require 'colorize'
 
+font = TTY::Font.new(:doom)
+
 def main_menu
     User.find_or_create_by(username: $username)
     puts "What would you like to do?"
@@ -43,19 +45,18 @@ def main_menu
         puts
         Anime.my_stats($username)
     elsif input == "5"
-        system "clear"
         puts "Goodbye #{$username}".colorize(:light_magenta)
         return
     else 
         puts "Invalid Input".colorize(:red)
     end
-    sleep 2.5
+    sleep 4
     system "clear"
     main_menu
 end 
 
 system "clear"
-puts "----------WELCOME TO ANIME PICKER!----------"
+puts font.write("ANIME PICKER")
 
 puts "Please create a username"
 $username = gets.chomp
