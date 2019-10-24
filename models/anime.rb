@@ -19,7 +19,7 @@ class Anime < ActiveRecord::Base
             anime_id = Anime.find_by(title: anime_title).id
             user_id = User.find_by(username: username).id
             UsersAnime.find_or_create_by(user_id: user_id, anime_id: anime_id, finished: true)
-            puts "Added #{anime_title} to your list"
+            puts "Added #{anime_title} to your list".colorize(:white)
         else 
             url = create_url(anime_title)
             anime = Anime.create_seedling(url)
@@ -29,7 +29,7 @@ class Anime < ActiveRecord::Base
             end
             user_id = User.find_by(username: username).id
             UsersAnime.find_or_create_by(user_id: user_id, anime_id: anime.id, finished: finished)
-            puts "Added #{anime_title} to your list"
+            puts "Added #{anime_title} to your list".colorize(:white)
         end
     end
 
@@ -62,7 +62,7 @@ class Anime < ActiveRecord::Base
         user_id = User.find_by(username: username).id
         users_anime_id = UsersAnime.find_by(user_id: user_id, anime_id: anime_id).id
         UsersAnime.delete(users_anime_id)
-        puts "Deleted #{anime_title} from your list"
+        puts "Deleted #{anime_title} from your list".colorize(:red)
     end
 
     def self.sort_by_ratings

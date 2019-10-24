@@ -6,9 +6,13 @@ require "tty-prompt"
 $prompt = TTY::Prompt.new
 font = TTY::Font.new(:doom)
 
+# def go_back(question, option) 
+#     $prompt.select(question, option)
+# end
+
 def main_menu
     # $prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
-
+    system "clear"
     User.find_or_create_by(username: $username)
     puts "What would you like to do?"
     puts "1. See my list of my animes".colorize(:white)
@@ -24,9 +28,9 @@ def main_menu
         Anime.get_my_animes($username)
     elsif input == "2"
         system "clear" 
-        puts "What anime would you like to add?"
+        puts "What anime would you like to add?".colorize(:white)
         anime_title = gets.chomp
-        puts "Have you finished this anime"
+        puts "Have you finished this anime".colorize(:white)
         finished = gets.chomp
         if finished == "yes"
             finished = true
@@ -39,9 +43,16 @@ def main_menu
     elsif input == "3"
         system "clear"
         Anime.get_my_animes($username)
-        puts "Please enter the anime title you would like to delete"
-        anime_title = gets.chomp
-        Anime.seek_and_destroy(anime_title, $username)
+        puts "Press 1 to delete an anime or anything to go back".colorize(:white)
+        temp = gets.chomp
+        case temp 
+        when "1"
+            puts "Please enter the anime title you would like to delete".colorize(:white)
+            anime_title = gets.chomp
+            Anime.seek_and_destroy(anime_title, $username)
+        else 
+            main_menu
+        end
     elsif input == "4"
         system "clear" 
        Anime.sort_by_ratings
@@ -63,9 +74,8 @@ end
 system "clear"
 puts font.write("ANIME PICKER")
 
-puts "Please create a username"
+puts "Please create a username".colorize(:white)
 $username = gets.chomp
-puts "Welcome, #{$username}"
 system "clear"
 main_menu
 
