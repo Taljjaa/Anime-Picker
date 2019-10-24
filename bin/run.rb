@@ -13,9 +13,10 @@ def main_menu
     puts "What would you like to do?"
     puts "1. See my list of my animes".colorize(:white)
     puts "2. Add an anime to my list".colorize(:white)
-    puts "3. List all anime by anime rating".colorize(:white)
-    puts "4. See my stats".colorize(:white)
-    puts "5. Exit =(".colorize(:white)
+    puts "3. Delete an anime from my list".colorize(:white)
+    puts "4. List all anime by anime rating".colorize(:white)
+    puts "5. See my stats".colorize(:white)
+    puts "6. Exit =(".colorize(:white)
     input = gets.chomp
 
     if input == "1"
@@ -42,13 +43,15 @@ def main_menu
         end
         Anime.add(anime_title, $username, finished)
     elsif input == "3"
+        puts "input was 3"
+    elsif input == "4"
         system "clear" 
        Anime.sort_by_ratings
-    elsif input == "4"
+    elsif input == "5"
         system "clear" 
         puts
         Anime.my_stats($username)
-    elsif input == "5"
+    elsif input == "6"
         puts "Goodbye #{$username}".colorize(:light_magenta)
         return
     else 

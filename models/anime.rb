@@ -1,4 +1,5 @@
 require 'pry'
+require 'colorize'
 
 class Anime < ActiveRecord::Base
     has_many :users_animes
@@ -13,6 +14,10 @@ class Anime < ActiveRecord::Base
         else 
             url = create_url(anime_title)
             anime = Anime.create_seedling(url)
+            if !anime 
+                puts "Could not find anime #{anime_title}. Please try again".colorize(:red)
+                return
+            end
             user_id = User.find_by(username: username).id
             UsersAnime.find_or_create_by(user_id: user_id, anime_id: anime.id, finished: finished)
             puts "Added #{anime_title} to your list"
@@ -28,6 +33,9 @@ class Anime < ActiveRecord::Base
     def self.create_seedling(url)
         response = RestClient.get(url)
         json_data = JSON.parse(response)["data"][0]
+        if !json_data 
+           return false
+        end
         title = json_data["attributes"]["titles"]["en"]
         avg_count = json_data["attributes"]["averageRating"].to_f
         date = json_data["attributes"]["startDate"]
