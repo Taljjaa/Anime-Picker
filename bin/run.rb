@@ -11,11 +11,11 @@ def main_menu
 
     User.find_or_create_by(username: $username)
     puts "What would you like to do?"
-    puts "1. See my list of my animes"
-    puts "2. Add an anime to my list"
-    puts "3. List all anime by anime rating"
-    puts "4. See my stats"
-    puts "5. Exit =("
+    puts "1. See my list of my animes".colorize(:white)
+    puts "2. Add an anime to my list".colorize(:white)
+    puts "3. List all anime by anime rating".colorize(:white)
+    puts "4. See my stats".colorize(:white)
+    puts "5. Exit =(".colorize(:white)
     input = gets.chomp
 
     if input == "1"
