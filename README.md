@@ -1,6 +1,4 @@
-# Title: Anime Picker
-
-## Description
+# Anime Picker
 
 Anime Picker allows you to create a user, add animes to your list, and view your anime stats
 
