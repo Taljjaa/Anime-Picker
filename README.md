@@ -1,6 +1,7 @@
 # Anime Picker
 
 Anime Picker allows you to create a user, add animes to your list, and view your anime stats
+[Demo](https://www.youtube.com/watch?v=wfpLvUA9g4c&feature=youtu.be)
 
 ## Installation
 
